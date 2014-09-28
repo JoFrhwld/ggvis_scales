@@ -19,10 +19,14 @@ shinyServer(function(input, output) {
         mutate(gear = as.character(gear))
     })
 
+    colorRange <- reactive({
+      c(`3` = "red", `4` = "blue", `5` = "green")[sort(selected())]
+    })
+    
     mtcars%>%
       ggvis(~wt, ~mpg)%>%
       layer_points()%>%
       layer_points(data = selectedData, fill = ~gear)%>%
-      scale_ordinal("fill", range = c("red","blue", "green"))%>%
+      scale_ordinal("fill", range = colorRange)%>%
       bind_shiny("ggvis", "ggvis_ui")
 })
