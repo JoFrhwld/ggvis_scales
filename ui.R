@@ -22,6 +22,7 @@ shinyUI(fluidPage(
     # Show a plot of the generated distribution
     mainPanel(
       uiOutput("ggvis_ui"),
-      ggvisOutput("ggvis"))
+      ggvisOutput("ggvis"),
+      textOutput("jawn"))
   )
 ))

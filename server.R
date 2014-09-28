@@ -23,10 +23,17 @@ shinyServer(function(input, output) {
       c(`3` = "red", `4` = "blue", `5` = "green")[sort(selected())]
     })
     
-    mtcars%>%
-      ggvis(~wt, ~mpg)%>%
-      layer_points()%>%
-      layer_points(data = selectedData, fill = ~gear)%>%
-      scale_ordinal("fill", range = colorRange)%>%
-      bind_shiny("ggvis", "ggvis_ui")
+    output$jawn <- renderText(colorRange())
+    
+    vis <- reactive({
+      cols <- colorRange()
+      hilight_data <- selectedData()
+      
+      mtcars%>%
+        ggvis(~wt, ~mpg)%>%
+        layer_points()%>%
+        layer_points(data = hilight_data, fill = ~gear)%>%
+        scale_ordinal("fill", range = cols)      
+    })
+    vis %>% bind_shiny("ggvis", "ggvis_ui")
 })
