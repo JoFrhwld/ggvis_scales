@@ -16,9 +16,12 @@ I keep getting errors, and I don't understand why.
 
 ## Branches
 
-- master branch = basic scales
+- master branch = Solution!
 - fixed_scales = one approach, that doesn't work
 - fixed_scales2 = another approach, that also doesn't work
 
-I'll update the master branch with a solution if I get one.
 
+## Solution
+
+- define hard coded range and domains of the scales, non-reactively
+- group_by() the categorizing data to inhibit animations
