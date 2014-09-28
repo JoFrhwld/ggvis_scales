@@ -16,13 +16,17 @@ shinyServer(function(input, output) {
     selectedData <- reactive({
       mtcars %>%
         filter(gear %in% selected())%>%
-        mutate(gear = as.character(gear))
+        mutate(gear = as.character(gear))%>%
+        group_by(gear)
     })
 
+    fill_domain = c("3","4","5")
+    fill_range = c("red","blue","green")
+      
     mtcars%>%
       ggvis(~wt, ~mpg)%>%
       layer_points()%>%
       layer_points(data = selectedData, fill = ~gear)%>%
-      scale_ordinal("fill", range = c("red","blue", "green"))%>%
+      scale_ordinal("fill", range = fill_range, domain = fill_domain)%>%
       bind_shiny("ggvis", "ggvis_ui")
 })
